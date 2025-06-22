@@ -47,7 +47,9 @@ class DemoControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(validRequest)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.status").value("BAD REQUEST"))
+                .andExpect(jsonPath("$.timestamp").exists());
     }
 
     @Test
@@ -58,7 +60,9 @@ class DemoControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(validRequest)))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors").exists());
+                .andExpect(jsonPath("$.message").exists())
+                .andExpect(jsonPath("$.status").value("BAD REQUEST"))
+                .andExpect(jsonPath("$.timestamp").exists());
     }
 
     @Test
@@ -72,4 +76,3 @@ class DemoControllerTest {
                 .andExpect(jsonPath("$.clientId").exists());
     }
 }
-

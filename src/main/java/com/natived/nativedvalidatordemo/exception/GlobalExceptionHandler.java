@@ -25,11 +25,8 @@ public class GlobalExceptionHandler {
         Map<String, Object> errorResponse = new HashMap<>();
         errorResponse.put("status", "BAD REQUEST");
         errorResponse.put("timestamp", LocalDateTime.now().toString());
-        StringBuilder sb = new StringBuilder();
-        sb.append(field).append(" : ").append(message);
-        errorResponse.put("message", String.format("%s %s", field, message));
-        // Add errors field as a list of error messages
-        errorResponse.put("errors", allErrors.stream().map(ObjectError::getDefaultMessage).toList());
+        // message: first error, formatted as 'field message' or just message if field is null
+        errorResponse.put("message", field != null ? String.format("%s %s", field, message) : message);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 }
